@@ -1,0 +1,50 @@
+.coinSearched{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.coinSearched__row--one{
+    align-items: center;
+    background-color: #1f1f1f;
+    display: flex;
+    height: 12vh;
+    justify-content: space-between;
+    padding: 12px 16px;
+    width: 90%;
+}
+
+.coinSearched__row--two{
+    align-items: center;
+    background-color: #202020;
+    display: flex;
+    height: 12vh;
+    justify-content: space-between;
+    margin-bottom: 45px;
+    padding: 12px 16px;
+    width: 90%;
+}
+
+.coinSearched__img{
+    height: 45px;
+    width: 45px;
+}
+
+.coinSearched__text{
+    color: whitesmoke;
+}
+.coinSearched__text--small{
+    font-size: 1.2rem;
+    color: whitesmoke;
+}
+
+.coinSearched__btn--wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.coinSearched__btn--add{
+    margin-right: 10px;
+}

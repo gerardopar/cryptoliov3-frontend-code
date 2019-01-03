@@ -1,0 +1,21 @@
+.globalMarket{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 10vh;
+    padding: 12px 16px;
+}
+
+.globalMarket__text--wrap{
+    background-color: rgb(31, 31, 31);
+    padding: 12px 16px;
+}
+
+.globalMarket__text{
+    color: whitesmoke;
+    font-size: 1.4rem;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}

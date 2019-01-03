@@ -1,0 +1,23 @@
+.summary{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 30vh;
+}
+
+.summary__title{
+    color: grey;
+    font-size: 2rem;
+    font-weight: 100;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+}
+
+.summary__balance{
+    color: whitesmoke;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

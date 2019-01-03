@@ -1,0 +1,26 @@
+.message{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.message__wrap{
+    align-items: center;
+    border: dashed rgb(117, 117, 117) 3px;
+    display: flex;
+    background-color: rgb(83, 83, 83);
+    justify-content: center;
+    flex-direction: column;
+    height: 25vh;
+    width: 90%;
+}
+
+.message__span{
+    color: #1f1f1f;
+}
+
+.message__title{
+    color: #1f1f1f;
+}
+

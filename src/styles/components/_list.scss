@@ -1,0 +1,25 @@
+.list__container{
+    background-color: transparent;
+    cursor: pointer;
+    max-height: 200px;
+    overflow-y: scroll;
+    position: relative; 
+}
+
+.list__item{
+    background-color: whitesmoke;
+    border-bottom: 1px solid #d4d4d4;
+    height: 50px;
+    padding: 10px;
+    transition: all 0.5s ease-in;
+    -webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -ms-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+}
+
+.list__item:hover{
+    background-color: rgb(58, 58, 58);
+    border-bottom: 1px solid #d4d4d4;
+    color: whitesmoke;
+}
