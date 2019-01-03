@@ -29,27 +29,6 @@ class Dashboard extends Component {
                 dailyVolume: 23249168212,
                 marketCap: 127937398710
             },
-            languages: [ // list of names
-                { name: 'CSS' },
-                { name: 'C' },
-                { name: 'C++' },
-                { name: 'Haskell' },
-                { name: 'HTML5' },
-                { name: 'Javascript' },
-                { name: 'Java' },
-                { name: 'Jade' },
-                { name: 'Jam' },
-                { name: 'Juice' },
-                { name: 'Jazz' },
-                { name: 'James' },
-                { name: 'Jordan' },
-                { name: 'Jack' },
-                { name: 'NodeJS' },
-                { name: 'PHP' },
-                { name: 'Scala' },
-                { name: 'Swift' },
-                { name: 'VB' }
-            ],
             coinsList: [], // suggestions array
             suggestions: [],
             search: '',
