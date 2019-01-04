@@ -124,7 +124,26 @@
 
 // * media queries
 // Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {
+@media (max-width: 374.98px) and (orientation: portrait) {
+    .coinItem {
+        height: 45vh;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+    .coinItem {
+        height: 45vh;
+    }
+}
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+    .coinItem {
+        height: 45vh;
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) and (orientation: landscape) {
     .coinItem {
         height: 60vh;
     }

@@ -17,20 +17,20 @@ class Dashboard extends Component {
         
         this.state = {
             hidden: false,
-            coinSearched: { // test coinSearched values
-                name: 'BITCOIN',
-                symbol: 'BTC',
-                logo: 'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/bitcoincash_bch_bitcoin-512.png',
-                price: 4000.00,
-                percentChange: -0.50
-            },
             // coinSearched: { // test coinSearched values
-            //     name: '',
-            //     symbol: '',
-            //     logo: '',
-            //     price: 0,
-            //     percentChange: 0
+            //     name: 'BITCOIN',
+            //     symbol: 'BTC',
+            //     logo: 'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/bitcoincash_bch_bitcoin-512.png',
+            //     price: 4000.00,
+            //     percentChange: -0.25
             // },
+            coinSearched: { // test coinSearched values
+                name: '',
+                symbol: '',
+                logo: '',
+                price: 0,
+                percentChange: 0
+            },
             market: {
                 btcDom: 53.21,
                 dailyVolume: 23249168212,
@@ -63,11 +63,11 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        // this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
-        // this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
+        this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
+        this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
         this.props.token ? this.setState({isAuth: true}) : this.setState({isAuth: false}); // updates auth state
-        // this.handleGlobalMarket(); // ! handles global market values
-        // this.handleCoinsList(); // ! handles the coinsList suggestion state
+        this.handleGlobalMarket(); // ! handles global market values
+        this.handleCoinsList(); // ! handles the coinsList suggestion state
     }
 
     // ! -------------------- auto suggestion ----------------------

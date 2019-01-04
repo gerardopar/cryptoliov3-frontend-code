@@ -52,72 +52,32 @@
 // * media queries
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 374.98px) and (orientation: portrait) {
-    .loginPage__header{
-        height: 12vh;
+    .coinSearched__row--one{
+        height: 17vh;
     }
 
-    .loginPage__header--title{
-        font-size: 1.6rem;
-        color: whitesmoke;
-    }
-
-    .loginPage__title{
-        font-size: 3rem;
-        color: whitesmoke;
-    }
-
-    .loginPage{
-        height: 100vh;
-    }
-
-    .loginPage__form--wrap{
-        height: 65%;
-        width: 85%;
+    .coinSearched__row--two{
+        height: 17vh;
     }
 }
 
 @media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
-    .loginPage__header{
-        height: 12vh;
+    .coinSearched__row--one{
+        height: 15vh;
     }
 
-    .loginPage__header--title{
-        font-size: 2.2rem;
-        color: whitesmoke;
-    }
-
-    .loginPage__title{
-        font-size: 3rem;
-        color: whitesmoke;
-    }
-
-    .loginPage{
-        height: 100vh;
-    }
-
-    .loginPage__form--wrap{
-        height: 65%;
-        width: 85%;
+    .coinSearched__row--two{
+        height: 15vh;
     }
 }
 
 @media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
-    .loginPage__header{
-        height: 12vh;
+    .coinSearched__row--one{
+        height: 15vh;
     }
 
-    .loginPage__title{
-        font-size: 3rem;
-        color: whitesmoke;
-    }
-
-    .loginPage{
-        height: 100vh;
-    }
-
-    .loginPage__form--wrap{
-        height: 65%;
-        width: 85%;
+    .coinSearched__row--two{
+        height: 15vh;
     }
 }
 

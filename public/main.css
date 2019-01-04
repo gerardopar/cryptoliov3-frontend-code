@@ -161,7 +161,49 @@ button:disabled {
 .loginPage__form--login--btn:hover {
   background-color: #3f51b5; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 374.98px) and (orientation: portrait) {
+  .loginPage__header {
+    height: 12vh; }
+  .loginPage__header--title {
+    font-size: 1.6rem;
+    color: whitesmoke; }
+  .loginPage__title {
+    font-size: 3rem;
+    color: whitesmoke; }
+  .loginPage {
+    height: 100vh; }
+  .loginPage__form--wrap {
+    height: 65%;
+    width: 85%; } }
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+  .loginPage__header {
+    height: 12vh; }
+  .loginPage__header--title {
+    font-size: 2.2rem;
+    color: whitesmoke; }
+  .loginPage__title {
+    font-size: 3rem;
+    color: whitesmoke; }
+  .loginPage {
+    height: 100vh; }
+  .loginPage__form--wrap {
+    height: 65%;
+    width: 85%; } }
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+  .loginPage__header {
+    height: 12vh; }
+  .loginPage__title {
+    font-size: 3rem;
+    color: whitesmoke; }
+  .loginPage {
+    height: 100vh; }
+  .loginPage__form--wrap {
+    height: 65%;
+    width: 85%; } }
+
+@media (max-width: 575.98px) and (orientation: landscape) {
   .loginPage__header {
     height: 15vh; }
   .loginPage__title {
@@ -246,7 +288,31 @@ button:disabled {
 .header__btn--explore:hover {
   background-color: #616161; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 374.98px) and (orientation: portrait) {
+  .header {
+    height: 12vh; }
+  .signup {
+    display: none; }
+  .header__title {
+    font-size: 1.6rem; } }
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+  .header {
+    height: 12vh; }
+  .signup {
+    display: none; }
+  .header__title {
+    font-size: 2.2rem; } }
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+  .header {
+    height: 12vh; }
+  .signup {
+    display: none; }
+  .header__title {
+    font-size: 2.6rem; } }
+
+@media (max-width: 575.98px) and (orientation: landscape) {
   .header {
     height: 15vh; } }
 
@@ -291,17 +357,17 @@ button:disabled {
   border-bottom: 1px solid #5c6bc0 !important;
   box-shadow: 0 1px 0 0 #1d1d1d !important; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 575.98px) and (orientation: landscape) {
   .searchbar {
-    height: 20vh; } }
+    height: 16vh; } }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   .searchbar {
-    height: 15vh; } }
+    height: 14.5vh; } }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) and (orientation: landscape) {
   .searchbar {
-    height: 15vh; } }
+    height: 13vh; } }
 
 .globalMarket {
   align-items: center;
@@ -322,7 +388,17 @@ button:disabled {
   margin: 0;
   padding: 0; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 575.98px) and (orientation: portrait) {
+  .globalMarket {
+    height: 20vh;
+    flex-direction: column;
+    width: 100%; }
+  .globalMarket__text--wrap {
+    margin-bottom: 5px;
+    text-align: center;
+    width: 100%; } }
+
+@media (max-width: 575.98px) and (orientation: landscape) {
   .globalMarket {
     height: 20vh; }
   .globalMarket__text {
@@ -356,6 +432,18 @@ button:disabled {
   font-weight: bold;
   margin: 0;
   padding: 0; }
+
+@media (max-width: 575.98px) {
+  .summary {
+    height: 50vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .summary {
+    height: 40vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .summary {
+    height: 40vh; } }
 
 .coinSearched {
   align-items: center;
@@ -401,7 +489,25 @@ button:disabled {
 .coinSearched__btn--add {
   margin-right: 10px; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 374.98px) and (orientation: portrait) {
+  .coinSearched__row--one {
+    height: 17vh; }
+  .coinSearched__row--two {
+    height: 17vh; } }
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+  .coinSearched__row--one {
+    height: 15vh; }
+  .coinSearched__row--two {
+    height: 15vh; } }
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+  .coinSearched__row--one {
+    height: 15vh; }
+  .coinSearched__row--two {
+    height: 15vh; } }
+
+@media (max-width: 575.98px) and (orientation: landscape) {
   .coinSearched__row--one {
     height: 30vh; }
   .coinSearched__row--two {
@@ -433,6 +539,7 @@ button:disabled {
   justify-content: center;
   flex-direction: column;
   height: 25vh;
+  text-align: center;
   width: 90%; }
 
 .message__span {
@@ -555,7 +662,19 @@ button:disabled {
   font-size: 1rem;
   margin-right: 1%; }
 
-@media (max-width: 575.98px) {
+@media (max-width: 374.98px) and (orientation: portrait) {
+  .coinItem {
+    height: 45vh; } }
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+  .coinItem {
+    height: 45vh; } }
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+  .coinItem {
+    height: 45vh; } }
+
+@media (max-width: 575.98px) and (orientation: landscape) {
   .coinItem {
     height: 60vh; } }
 
@@ -577,14 +696,6 @@ button:disabled {
 .form__input--wrap {
   position: relative;
   width: 95%; }
-
-.form__input {
-  background: none;
-  border: none;
-  color: whitesmoke;
-  font-size: 3rem !important;
-  margin-top: 1%;
-  width: 100%; }
 
 .form__input::placeholder {
   background: none;
@@ -616,17 +727,17 @@ button:disabled {
   -ms-transform: translate(-2%, -50%);
   -o-transform: translate(-2%, -50%); }
 
-@media (max-width: 575.98px) {
+@media (max-width: 575.98px) and (orientation: landscape) {
   .form {
-    height: 15vh; } }
+    height: 13vh; } }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   .form {
-    height: 20vh; } }
+    height: 12vh; } }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) and (orientation: landscape) {
   .form {
-    height: 15vh; } }
+    height: 10vh; } }
 
 .list__container {
   background-color: transparent;
@@ -659,7 +770,8 @@ button:disabled {
   justify-content: center;
   margin-top: 60px;
   padding: 12px 16px;
-  height: 20vh; }
+  height: 20vh;
+  text-align: center; }
 
 .footerDefault {
   align-items: center;
@@ -668,7 +780,8 @@ button:disabled {
   flex-direction: column;
   justify-content: center;
   padding: 12px 16px;
-  height: 20vh; }
+  height: 20vh;
+  text-align: center; }
 
 .footer__text--wrap {
   margin-bottom: 10px; }
