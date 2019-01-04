@@ -46,3 +46,72 @@
 .header__btn--explore:hover{
     background-color: #616161;
 }
+
+// * media queries
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 374.98px) and (orientation: portrait) {
+    .header{
+        height: 12vh;
+    }
+    .signup{
+        display: none;
+    }
+    .header__title{
+        font-size: 1.6rem;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+    .header{
+        height: 12vh;
+    }
+    .signup{
+        display: none;
+    }
+    .header__title{
+        font-size: 2.2rem;
+    }
+}
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+    .header{
+        height: 12vh;
+    }
+    .signup{
+        display: none;
+    }
+    .header__title{
+        font-size: 2.6rem;
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) and (orientation: landscape) {
+    .header{
+        height: 15vh;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .header{
+        height: 12vh;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .header{
+        height: 12vh;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

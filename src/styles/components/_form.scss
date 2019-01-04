@@ -11,15 +11,6 @@
     width: 95%;
 }
 
-.form__input{
-    background: none;
-    border: none;
-    color: whitesmoke;
-    font-size: 3rem !important;
-    margin-top: 1%;
-    width: 100%;
-}
-
 .form__input::placeholder{
     background: none;
     background-color: none;
@@ -52,4 +43,36 @@
     -moz-transform: translate(-2%, -50%);
     -ms-transform: translate(-2%, -50%);
     -o-transform: translate(-2%, -50%);
+}
+
+// * media queries
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) and (orientation: landscape) {
+    .form{
+        height: 13vh;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .form{
+        height: 12vh;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) and (orientation: landscape) {
+    .form{
+        height: 10vh;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
 }

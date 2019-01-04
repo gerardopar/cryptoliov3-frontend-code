@@ -34,7 +34,6 @@ class AppRouter extends Component {
             this.setState({ isAuth: true, token: token });
         }
         if(expDate < currentDate) {
-            console.log('Token expired');
             this.handleAutoLogout();
         }
     }
@@ -63,7 +62,6 @@ class AppRouter extends Component {
             return res.json();
         })
         .then(resData => {
-            console.log(resData);
             this.setState(() => ({
                 isAuth: true,
                 token: resData.token

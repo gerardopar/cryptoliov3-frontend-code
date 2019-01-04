@@ -38,7 +38,6 @@ class SignupPage extends Component{
             return res.json();
         })
         .then(resData => {
-            console.log(resData);
             this.props.history.replace('/');
         })
     }

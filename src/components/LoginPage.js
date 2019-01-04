@@ -20,7 +20,7 @@ const LoginPage = (props) => {
             <div className="loginPage" style={{
                 backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0.10), rgba(66, 66, 66, 0.70)), url(${crypto_img})`
             }}>
-                <div className="loginPage__form--wrap">
+            <div className="loginPage__form--wrap">
                     <h1 className="loginPage__title">Log In</h1>
                     <form onSubmit={props.handleLogin} className="loginPage__form">
                         <div className="loginPage__form--input loginPage__input--one">

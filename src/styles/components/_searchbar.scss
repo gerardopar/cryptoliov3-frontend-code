@@ -35,3 +35,43 @@
     border-bottom: 1px solid #5c6bc0 !important;
     box-shadow: 0 1px 0 0 rgb(29, 29, 29) !important
 }
+
+// * media queries
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 413.98px) and (orientation: portrait) {
+
+}
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+
+}
+// Extra small devices (landscape phones, less than 576px)
+@media (max-width: 575.98px) and (orientation: landscape) {
+    .searchbar{
+        height: 16vh;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .searchbar{
+        height: 14.5vh;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) and (orientation: landscape) {
+    .searchbar{
+        height: 13vh;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

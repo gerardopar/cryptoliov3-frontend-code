@@ -21,7 +21,7 @@ const Header = (props) => {
                 {
                     props.isAuth ? 
                         null :
-                        <NavLink to="/signup" className="btn-small waves-effect waves-light z-depth-5 header__btn">SIGN UP</NavLink>
+                        <NavLink to="/signup" className="btn-small waves-effect waves-light z-depth-5 header__btn signup">SIGN UP</NavLink>
                 }
                 
                 <button

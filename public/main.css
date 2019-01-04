@@ -161,6 +161,39 @@ button:disabled {
 .loginPage__form--login--btn:hover {
   background-color: #3f51b5; }
 
+@media (max-width: 575.98px) {
+  .loginPage__header {
+    height: 15vh; }
+  .loginPage__title {
+    font-size: 3rem;
+    color: whitesmoke; }
+  .loginPage {
+    height: 100vh; }
+  .loginPage__form--wrap {
+    height: 85%;
+    width: 65%; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .loginPage__header {
+    height: 12vh; }
+  .loginPage__title {
+    font-size: 3rem;
+    color: whitesmoke; }
+  .loginPage {
+    height: 85vh; }
+  .loginPage__form--wrap {
+    height: 85%;
+    width: 65%; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .loginPage__header {
+    height: 12vh; }
+  .loginPage {
+    height: 85vh; }
+  .loginPage__form--wrap {
+    height: 85%;
+    width: 65%; } }
+
 .dashboard {
   background: #000000;
   /* fallback for old browsers */
@@ -213,6 +246,18 @@ button:disabled {
 .header__btn--explore:hover {
   background-color: #616161; }
 
+@media (max-width: 575.98px) {
+  .header {
+    height: 15vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .header {
+    height: 12vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .header {
+    height: 12vh; } }
+
 .searchbar {
   background-color: #1f1f1f;
   height: 10vh; }
@@ -246,6 +291,18 @@ button:disabled {
   border-bottom: 1px solid #5c6bc0 !important;
   box-shadow: 0 1px 0 0 #1d1d1d !important; }
 
+@media (max-width: 575.98px) {
+  .searchbar {
+    height: 20vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .searchbar {
+    height: 15vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .searchbar {
+    height: 15vh; } }
+
 .globalMarket {
   align-items: center;
   display: flex;
@@ -264,6 +321,20 @@ button:disabled {
   font-weight: 100;
   margin: 0;
   padding: 0; }
+
+@media (max-width: 575.98px) {
+  .globalMarket {
+    height: 20vh; }
+  .globalMarket__text {
+    font-size: 1.2rem; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .globalMarket {
+    height: 20vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .globalMarket {
+    height: 20vh; } }
 
 .summary {
   align-items: center;
@@ -330,6 +401,24 @@ button:disabled {
 .coinSearched__btn--add {
   margin-right: 10px; }
 
+@media (max-width: 575.98px) {
+  .coinSearched__row--one {
+    height: 30vh; }
+  .coinSearched__row--two {
+    height: 30vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .coinSearched__row--one {
+    height: 26vh; }
+  .coinSearched__row--two {
+    height: 26vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .coinSearched__row--one {
+    height: 23vh; }
+  .coinSearched__row--two {
+    height: 23vh; } }
+
 .message {
   align-items: center;
   display: flex;
@@ -351,6 +440,22 @@ button:disabled {
 
 .message__title {
   color: #1f1f1f; }
+
+@media (max-width: 575.98px) {
+  .message__wrap {
+    height: 35vh; }
+  .message__title {
+    font-size: 2.4rem; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .message__wrap {
+    height: 35vh; }
+  .message__title {
+    font-size: 2.6rem; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .message__wrap {
+    height: 35vh; } }
 
 .coinItem {
   align-items: center;
@@ -450,6 +555,18 @@ button:disabled {
   font-size: 1rem;
   margin-right: 1%; }
 
+@media (max-width: 575.98px) {
+  .coinItem {
+    height: 60vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .coinItem {
+    height: 60vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .coinItem {
+    height: 60vh; } }
+
 .form {
   background-color: none;
   display: block;
@@ -498,6 +615,18 @@ button:disabled {
   -moz-transform: translate(-2%, -50%);
   -ms-transform: translate(-2%, -50%);
   -o-transform: translate(-2%, -50%); }
+
+@media (max-width: 575.98px) {
+  .form {
+    height: 15vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .form {
+    height: 20vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .form {
+    height: 15vh; } }
 
 .list__container {
   background-color: transparent;
@@ -548,6 +677,24 @@ button:disabled {
   height: 50px;
   margin-bottom: 10px;
   width: 50px; }
+
+@media (max-width: 575.98px) {
+  .footer {
+    height: 60vh; }
+  .footerDefault {
+    height: 60vh; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .footer {
+    height: 40vh; }
+  .footerDefault {
+    height: 40vh; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .footer {
+    height: 40vh; }
+  .footerDefault {
+    height: 40vh; } }
 
 
 /*# sourceMappingURL=main.css.map*/

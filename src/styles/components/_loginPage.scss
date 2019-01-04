@@ -134,3 +134,141 @@
 .loginPage__form--login--btn:hover{
     background-color: #3f51b5;
 }
+
+// * media queries
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 374.98px) and (orientation: portrait) {
+    .loginPage__header{
+        height: 12vh;
+    }
+
+    .loginPage__header--title{
+        font-size: 1.6rem;
+        color: whitesmoke;
+    }
+
+    .loginPage__title{
+        font-size: 3rem;
+        color: whitesmoke;
+    }
+
+    .loginPage{
+        height: 100vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 65%;
+        width: 85%;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 413.98px) and (orientation: portrait) {
+    .loginPage__header{
+        height: 12vh;
+    }
+
+    .loginPage__header--title{
+        font-size: 2.2rem;
+        color: whitesmoke;
+    }
+
+    .loginPage__title{
+        font-size: 3rem;
+        color: whitesmoke;
+    }
+
+    .loginPage{
+        height: 100vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 65%;
+        width: 85%;
+    }
+}
+
+@media (min-width: 414px) and (max-width: 575.98px) and (orientation: portrait) {
+    .loginPage__header{
+        height: 12vh;
+    }
+
+    .loginPage__title{
+        font-size: 3rem;
+        color: whitesmoke;
+    }
+
+    .loginPage{
+        height: 100vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 65%;
+        width: 85%;
+    }
+}
+
+@media (max-width: 575.98px) and (orientation: landscape){
+    .loginPage__header{
+        height: 15vh;
+    }
+
+    .loginPage__title{
+        font-size: 3rem;
+        color: whitesmoke;
+    }
+
+    .loginPage{
+        height: 100vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 85%;
+        width: 65%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .loginPage__header{
+        height: 12vh;
+    }
+
+    .loginPage__title{
+        font-size: 3rem;
+        color: whitesmoke;
+    }
+
+    .loginPage{
+        height: 85vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 85%;
+        width: 65%;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .loginPage__header{
+        height: 12vh;
+    }
+
+    .loginPage{
+        height: 85vh;
+    }
+
+    .loginPage__form--wrap{
+        height: 85%;
+        width: 65%;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

@@ -16,14 +16,21 @@ class Dashboard extends Component {
         super(props);
         
         this.state = {
-            hidden: true,
-            coinSearched: {
-                name: '',
-                symbol: '',
-                logo: '',
-                price: 0,
-                percentChange: 0
+            hidden: false,
+            coinSearched: { // test coinSearched values
+                name: 'BITCOIN',
+                symbol: 'BTC',
+                logo: 'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/bitcoincash_bch_bitcoin-512.png',
+                price: 4000.00,
+                percentChange: -0.50
             },
+            // coinSearched: { // test coinSearched values
+            //     name: '',
+            //     symbol: '',
+            //     logo: '',
+            //     price: 0,
+            //     percentChange: 0
+            // },
             market: {
                 btcDom: 53.21,
                 dailyVolume: 23249168212,
@@ -56,11 +63,11 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
-        this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
+        // this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
+        // this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
         this.props.token ? this.setState({isAuth: true}) : this.setState({isAuth: false}); // updates auth state
-        this.handleGlobalMarket(); // ! handles global market values
-        this.handleCoinsList(); // ! handles the coinsList suggestion state
+        // this.handleGlobalMarket(); // ! handles global market values
+        // this.handleCoinsList(); // ! handles the coinsList suggestion state
     }
 
     // ! -------------------- auto suggestion ----------------------
@@ -78,7 +85,6 @@ class Dashboard extends Component {
             this.setState(() => ({
                 coinsList: [...data.coinsList] // set the suggestions array
             }));
-            console.log('udpated coinsList', this.state.coinsList);
         })
         .catch((err) => (console.log(err)));
     }
@@ -98,17 +104,13 @@ class Dashboard extends Component {
             suggestions: suggestions, // set suggestions array
             search: coinSearch // set search input
         }));
-
-        console.log('suggestion state', this.state.suggestions);
     }
 
     // method: selects the search input from the list
     selectSearch(e, coinSearched){
-        console.log('clicked name', coinSearched);
         this.setState(() => ({
             search: coinSearched.toUpperCase() // updates the user's search input
         }));
-        console.log('search state', coinSearched);
     }
 
 
@@ -153,7 +155,6 @@ class Dashboard extends Component {
             return data.json();
         })
         .then((data) => {
-            console.log('loading coins..', data);
             this.setState(() => ({
                 coins: data.coins
             }));
@@ -298,7 +299,6 @@ class Dashboard extends Component {
             throw new Error('Validation failed.');
             }
             if (res.status !== 200 && res.status !== 201) {
-            console.log('Error!');
             throw new Error('Could not authenticate you!');
             }
             return res.json();
