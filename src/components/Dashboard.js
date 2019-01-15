@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // importing components
 import Header from './Header'; 
+import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import GlobalMarket from './GlobalMarket';
 import Summary from './Summary';
@@ -31,10 +32,15 @@ class Dashboard extends Component {
                 price: 0,
                 percentChange: 0
             },
+            // market: {
+            //     btcDom: 53.21,
+            //     dailyVolume: 23249168212,
+            //     marketCap: 127937398710
+            // },
             market: {
-                btcDom: 53.21,
-                dailyVolume: 23249168212,
-                marketCap: 127937398710
+                btcDom: 0,
+                dailyVolume: 0,
+                marketCap: 0
             },
             coinsList: [], // suggestions array
             suggestions: [],
@@ -63,11 +69,11 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
+        this.handleGlobalMarket(); // ! handles global market values
+        this.handleCoinsList(); // ! handles the coinsList suggestion state
         this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
         this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
         this.props.token ? this.setState({isAuth: true}) : this.setState({isAuth: false}); // updates auth state
-        this.handleGlobalMarket(); // ! handles global market values
-        this.handleCoinsList(); // ! handles the coinsList suggestion state
     }
 
     // ! -------------------- auto suggestion ----------------------
@@ -402,85 +408,91 @@ class Dashboard extends Component {
 
     render(){
         return (
-            <div className="dashboard">
+            <React.Fragment>
+            {
+                this.state.market.marketCap !== 0 
+                    ? <div className="dashboard">
             
-                <Header
-                    isAuth={this.state.isAuth}
-                    hidden={this.state.hidden}
-                    handleSearchBar={this.handleSearchBar} 
-                    handleLogout={this.props.handleLogout}
-                />
-
-                <ReactCSSTransitionGroup
-                    transitionName="trans"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}>
-                    { this.state.hidden ? null : 
-                        <SearchBar 
-                            suggestions={this.state.suggestions}
-                            selectSearch={this.selectSearch}
-                            clearSuggestion={this.clearSuggestions}
-
-                            search={this.state.search}
-                            getUserInput={this.getUserInput} 
-                            handleCoinSearch={this.handleCoinSearch}
-                            /> 
+                    <Header
+                        isAuth={this.state.isAuth}
+                        hidden={this.state.hidden}
+                        handleSearchBar={this.handleSearchBar} 
+                        handleLogout={this.props.handleLogout}
+                    />
+    
+                    <ReactCSSTransitionGroup
+                        transitionName="trans"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}>
+                        { this.state.hidden ? null : 
+                            <SearchBar 
+                                suggestions={this.state.suggestions}
+                                selectSearch={this.selectSearch}
+                                clearSuggestion={this.clearSuggestions}
+    
+                                search={this.state.search}
+                                getUserInput={this.getUserInput} 
+                                handleCoinSearch={this.handleCoinSearch}
+                                /> 
+                        }
+                    </ReactCSSTransitionGroup>
+    
+                    <GlobalMarket 
+                        btcDom={this.state.market.btcDom}
+                        dailyVolume={this.state.market.dailyVolume}
+                        marketCap={this.state.market.marketCap}
+                    />
+    
+                    <Summary summary={this.state.summary}/>
+    
+                    <ReactCSSTransitionGroup
+                        transitionName="trans"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}>
+                    {
+                        this.state.coinSearched.name.length > 0 
+                            ? <CoinSearched 
+                                isAuth={this.state.isAuth}
+                                name={this.state.coinSearched.name}
+                                symbol={this.state.coinSearched.symbol}
+                                logo={this.state.coinSearched.logo}
+                                price={this.state.coinSearched.price}
+                                percentChange={this.state.coinSearched.percentChange}
+                                handleClearCoinSearch={this.handleClearCoinSearch}
+                                handleAddCoin={this.handleAddCoin}
+                            /> : null 
                     }
-                </ReactCSSTransitionGroup>
-
-                <GlobalMarket 
-                    btcDom={this.state.market.btcDom}
-                    dailyVolume={this.state.market.dailyVolume}
-                    marketCap={this.state.market.marketCap}
-                />
-
-                <Summary summary={this.state.summary}/>
-
-                <ReactCSSTransitionGroup
-                    transitionName="trans"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}>
-                {
-                    this.state.coinSearched.name.length > 0 
-                        ? <CoinSearched 
-                            isAuth={this.state.isAuth}
-                            name={this.state.coinSearched.name}
-                            symbol={this.state.coinSearched.symbol}
-                            logo={this.state.coinSearched.logo}
-                            price={this.state.coinSearched.price}
-                            percentChange={this.state.coinSearched.percentChange}
-                            handleClearCoinSearch={this.handleClearCoinSearch}
-                            handleAddCoin={this.handleAddCoin}
-                        /> : null 
-                }
-                </ReactCSSTransitionGroup>
-
-                <ReactCSSTransitionGroup
-                    transitionName="trans"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}>
-                {
-                    this.state.coins.length > 0 ? 
-                        <Coin 
-                            coins={this.state.coins} 
-                            handleCoinsToAdd={this.handleCoinsToAdd}
-                            handleCoinsToRemove={this.handleCoinsToRemove}
-                            handleCoinsToClear={this.handleCoinsToClear}
-                            handleRemoveCoin={this.handleRemoveCoin}
-                        /> 
-                        : this.state.isAuth === true ? 
-                            <Message 
-                                span={'Add coins to get started'} 
-                                title={'NO COINS CURRENTLY TRACKED'}
-                            /> : 
-                            <Message 
-                                span={'Login or Signup to start tracking coins!'} 
-                                title={'NO COINS CURRENTLY TRACKED'}
-                            />
-                }
-                </ReactCSSTransitionGroup>
-                <Footer />
-            </div>
+                    </ReactCSSTransitionGroup>
+    
+                    <ReactCSSTransitionGroup
+                        transitionName="trans"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}>
+                    {
+                        this.state.coins.length > 0 ? 
+                            <Coin 
+                                coins={this.state.coins} 
+                                handleCoinsToAdd={this.handleCoinsToAdd}
+                                handleCoinsToRemove={this.handleCoinsToRemove}
+                                handleCoinsToClear={this.handleCoinsToClear}
+                                handleRemoveCoin={this.handleRemoveCoin}
+                            /> 
+                            : this.state.isAuth === true ? 
+                                <Message 
+                                    span={'Add coins to get started'} 
+                                    title={'NO COINS CURRENTLY TRACKED'}
+                                /> : 
+                                <Message 
+                                    span={'Login or Signup to start tracking coins!'} 
+                                    title={'NO COINS CURRENTLY TRACKED'}
+                                />
+                    }
+                    </ReactCSSTransitionGroup>
+                    <Footer />
+                </div> : <Spinner />
+            }
+            
+            </React.Fragment>
         )
     }
 
