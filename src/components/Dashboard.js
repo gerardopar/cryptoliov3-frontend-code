@@ -1,5 +1,20 @@
+// importing modules
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+// importing redux actions
+import { 
+    setGlobalMarketAsync, 
+    setAutoSuggestionsAsync, 
+    setCoinSearchAsync, 
+    clearCoinSearch,
+    setUserCoinsAsync,
+    setCoinSummaryAsync,
+    removeCoinAsync,
+    coinsToAddAsync,
+    coinsToRemoveAsync,
+    coinsToClearAsync} from '../actions/crypto';
 
 // importing components
 import Header from './Header'; 
@@ -18,48 +33,18 @@ class Dashboard extends Component {
         
         this.state = {
             hidden: false,
-            // coinSearched: { // test coinSearched values
-            //     name: 'BITCOIN',
-            //     symbol: 'BTC',
-            //     logo: 'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/bitcoincash_bch_bitcoin-512.png',
-            //     price: 4000.00,
-            //     percentChange: -0.25
-            // },
-            coinSearched: { // test coinSearched values
-                name: '',
-                symbol: '',
-                logo: '',
-                price: 0,
-                percentChange: 0
-            },
-            // market: {
-            //     btcDom: 53.21,
-            //     dailyVolume: 23249168212,
-            //     marketCap: 127937398710
-            // },
-            market: {
-                btcDom: 0,
-                dailyVolume: 0,
-                marketCap: 0
-            },
-            coinsList: [], // suggestions array
             suggestions: [],
             search: '',
-            coins: [],
             isAuth: false,
-            summary: 0,
-
         }
-        this.handleCoinsList = this.handleCoinsList.bind(this);
+
         this.getUserInput = this.getUserInput.bind(this);
         this.selectSearch = this.selectSearch.bind(this);
         this.clearSuggestions = this.clearSuggestions.bind(this);
-
         this.handleCoinSummary = this.handleCoinSummary.bind(this); 
         this.handleLoadCoins = this.handleLoadCoins.bind(this);
         this.handleSearchBar = this.handleSearchBar.bind(this);
         this.handleCoinSearch = this.handleCoinSearch.bind(this);
-        this.handleGlobalMarket = this.handleGlobalMarket.bind(this);
         this.handleClearCoinSearch = this.handleClearCoinSearch.bind(this);
         this.handleAddCoin = this.handleAddCoin.bind(this);
         this.handleRemoveCoin = this.handleRemoveCoin.bind(this);
@@ -69,31 +54,14 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        this.handleGlobalMarket(); // ! handles global market values
-        this.handleCoinsList(); // ! handles the coinsList suggestion state
+        // this.props.setGlobalMarketAsync(); // # redux
+        // this.props.setAutoSuggestionsAsync(); // # redux
         this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
         this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
         this.props.token ? this.setState({isAuth: true}) : this.setState({isAuth: false}); // updates auth state
     }
 
     // ! -------------------- auto suggestion ----------------------
-
-    // method: handles the coin suggestions
-    handleCoinsList(){
-        fetch('https://cryptolio-api-v1.herokuapp.com/coinList', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-            this.setState(() => ({
-                coinsList: [...data.coinsList] // set the suggestions array
-            }));
-        })
-        .catch((err) => (console.log(err)));
-    }
 
     // method: fetches suggestion based on user input
     getUserInput(e){
@@ -102,7 +70,7 @@ class Dashboard extends Component {
         let coinLength = coinSearch.length; // onchange user input length
 
         // ! test filter logic
-        let suggestions = coinLength === 0 ? [] : this.state.coinsList.filter(lang => // filters coins from suggestions coinsLists
+        let suggestions = coinLength === 0 ? [] : this.props.coinsList.filter(lang => // filters coins from suggestions coinsLists
             lang.name.toUpperCase().slice(0, coinLength) === coinSearch
         );
 
@@ -119,7 +87,6 @@ class Dashboard extends Component {
         }));
     }
 
-
     // method: clears the suggestion list
     clearSuggestions(){
         this.setState(() => ({
@@ -131,42 +98,12 @@ class Dashboard extends Component {
 
     // method: handles the portfolio summary 
     handleCoinSummary(){
-        fetch('https://cryptolio-api-v1.herokuapp.com/summary', {
-            headers: {
-                Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-            this.setState(() => ({
-                summary: data.summary // udpating the summary state
-            }));
-        })
-        .catch((err) => (console.log(err)));
+        this.props.setCoinSummaryAsync(this.props.token);
     }
 
     // method: handles fetching the users coins
     handleLoadCoins(){
-        
-        fetch('https://cryptolio-api-v1.herokuapp.com/coins', {
-            headers: {
-                Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-            this.setState(() => ({
-                coins: data.coins
-            }));
-            
-        })
-        .catch((err) => (console.log(err)));
+        this.props.setUserCoinsAsync(this.props.token);
     }
 
     // method: handles searchbar toggle
@@ -179,70 +116,13 @@ class Dashboard extends Component {
     handleCoinSearch(e){
         e.preventDefault();
         const coinSearched = e.target.elements.coinSearched.value; // user input
-        fetch(`https://cryptolio-api-v1.herokuapp.com/coinSearched`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                coinSearched: coinSearched
-            })
-        })
-        .then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-            this.setState(() => ({
-                coinSearched:{ // updating the coinSearch initial state
-                    name: data.coinName,
-                    symbol: data.coinSymbol,
-                    logo: data.coinLogo,
-                    price: data.coinPrice,
-                    percentChange: data.coinPercentChange
-                }
-            }));
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
-
-    // method: handles the global market values
-    handleGlobalMarket() {
-        //fetch global market from the api here
-        fetch('https://cryptolio-api-v1.herokuapp.com/globalMarket', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-
-            this.setState(() => ({
-                market: {
-                    btcDom: data.btcDom.toFixed(2),
-                    dailyVolume: currencyFormat(data.dailyVolume),
-                    marketCap: currencyFormat(data.marketCap)
-                }
-            }));
-        })
-        .catch((err) => (console.log(err)));
+        this.props.setCoinSearchAsync(coinSearched);
+        this.setState({ search: '' });
     }
 
     // method: handles clearing the search state
-    handleClearCoinSearch(e){
-        e.preventDefault();
-        this.setState(() => ({
-            coinSearched: {
-                name: '',
-                symbol: '',
-                logo: '',
-                price: 0,
-                percentChange: 0
-            }
-        }));
+    handleClearCoinSearch(){
+        this.props.clearCoinSearch();
     }
 
     // method: adds a coin to the wallet/currencies tracked
@@ -255,162 +135,58 @@ class Dashboard extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: this.state.coinSearched.name,
-                symbol: this.state.coinSearched.symbol,
-                logo: this.state.coinSearched.logo,
-                price: this.state.coinSearched.price,
-                percentChange: this.state.coinSearched.percentChange
+                name: this.props.coinSearched.name,
+                symbol: this.props.coinSearched.symbol,
+                logo: this.props.coinSearched.logo,
+                price: this.props.coinSearched.price,
+                percentChange: this.props.coinSearched.percentChange
             })
         })
         .then((data) => {
             return data.json();
         })
         .then((data) => {
-
-            this.setState(() => ({ // clearing the coinSearched
-                coinSearched: {
-                    name: '',
-                    symbol: '',
-                    logo: '',
-                    price: 0,
-                    percentChange: 0
-                }
-            }));
-
-            this.setState(() => ({
-                coins: data.coins
-            }));
-
+            this.handleClearCoinSearch();
+            this.handleLoadCoins();
         })
         .catch((err) => {
             console.log(err);
         })
     }
 
-    handleRemoveCoin(e, id){
+    async handleRemoveCoin(e, id){
         e.preventDefault();
-
-        fetch(`https://cryptolio-api-v1.herokuapp.com/removeCoin`, {
-        method: 'DELETE',
-        headers: {
-            Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: id
-        })
-        })
-        .then(res => {
-            if (res.status === 422) {
-            throw new Error('Validation failed.');
-            }
-            if (res.status !== 200 && res.status !== 201) {
-            throw new Error('Could not authenticate you!');
-            }
-            return res.json();
-        })
-        .then((result) => {
-            this.setState((prevState) => ({
-                coins: prevState.coins.filter((coin) => coin._id !== id)
-            }))
-            this.handleCoinSummary(); //! handles the portfolio summary
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        await this.props.removeCoinAsync(this.props.token, id);
+        await this.props.setCoinSummaryAsync(this.props.token);
     }
 
-        // method: adds coins owned
-        handleCoinsToAdd(e, id){
-            e.preventDefault();
-            const coinsToAdd = e.target.elements.coinsToAdd.value; // user input
+    // method: adds coins owned
+    async handleCoinsToAdd(e, id){
+        e.preventDefault();
+        const coinsToAdd = e.target.elements.coinsToAdd.value; // user input
+        await this.props.coinsToAddAsync(this.props.token, id, coinsToAdd);
+        await this.props.setCoinSummaryAsync(this.props.token);
+    }
 
-            fetch(`https://cryptolio-api-v1.herokuapp.com/coinsToAdd`, {
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id,
-                    coinsToAdd: coinsToAdd
-                })
-            })
-            .then((data) => {
-                return data.json();
-            })
-            .then((data) => {
-                this.setState(() => ({
-                    coins: data.coins
-                }));
-                this.handleCoinSummary(); //! handles the portfolio summary
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
+    // method: removes coins owned
+    async handleCoinsToRemove(e, id){
+        e.preventDefault();
+        const coinsToRemove = e.target.elements.coinsToRemove.value; // user input
+        await this.props.coinsToRemoveAsync(this.props.token, id, coinsToRemove);
+        await this.props.setCoinSummaryAsync(this.props.token);
+    }
 
-        // method: removes coins owned
-        handleCoinsToRemove(e, id){
-            e.preventDefault();
-            const coinsToRemove = e.target.elements.coinsToRemove.value; // user input
-
-            fetch(`https://cryptolio-api-v1.herokuapp.com/coinsToRemove`, {
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id,
-                    coinsToRemove: coinsToRemove
-                })
-            })
-            .then((data) => {
-                return data.json();
-            })
-            .then((data) => {
-                this.setState(() => ({
-                    coins: data.coins
-                }));
-                this.handleCoinSummary(); //! handles the portfolio summary
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
-
-        handleCoinsToClear(e, id){
-            e.preventDefault();
-            fetch(`https://cryptolio-api-v1.herokuapp.com/clearCoins`, {
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + this.props.token, // required to authenticate the user
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id
-                })
-            })
-            .then((data) => {
-                return data.json();
-            })
-            .then((data) => {
-                this.setState(() => ({
-                    coins: data.coins
-                }));
-                this.handleCoinSummary(); //! handles the portfolio summary
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
+    async handleCoinsToClear(e, id){
+        e.preventDefault();
+        await this.props.coinsToClearAsync(this.props.token, id);
+        await this.props.setCoinSummaryAsync(this.props.token);
+    }
 
     render(){
         return (
             <React.Fragment>
-            {
-                this.state.market.marketCap !== 0 
+            {  
+                this.props.market.marketCap !== 0 
                     ? <div className="dashboard">
             
                     <Header
@@ -438,26 +214,26 @@ class Dashboard extends Component {
                     </ReactCSSTransitionGroup>
     
                     <GlobalMarket 
-                        btcDom={this.state.market.btcDom}
-                        dailyVolume={this.state.market.dailyVolume}
-                        marketCap={this.state.market.marketCap}
+                        btcDom={this.props.market.btcDom}
+                        dailyVolume={this.props.market.dailyVolume}
+                        marketCap={this.props.market.marketCap}
                     />
     
-                    <Summary summary={this.state.summary}/>
+                    <Summary summary={this.props.summary}/>
     
                     <ReactCSSTransitionGroup
                         transitionName="trans"
                         transitionEnterTimeout={500}
                         transitionLeaveTimeout={500}>
                     {
-                        this.state.coinSearched.name.length > 0 
+                        this.props.coinSearched.name.length > 0 
                             ? <CoinSearched 
                                 isAuth={this.state.isAuth}
-                                name={this.state.coinSearched.name}
-                                symbol={this.state.coinSearched.symbol}
-                                logo={this.state.coinSearched.logo}
-                                price={this.state.coinSearched.price}
-                                percentChange={this.state.coinSearched.percentChange}
+                                name={this.props.coinSearched.name}
+                                symbol={this.props.coinSearched.symbol}
+                                logo={this.props.coinSearched.logo}
+                                price={this.props.coinSearched.price}
+                                percentChange={this.props.coinSearched.percentChange}
                                 handleClearCoinSearch={this.handleClearCoinSearch}
                                 handleAddCoin={this.handleAddCoin}
                             /> : null 
@@ -469,9 +245,9 @@ class Dashboard extends Component {
                         transitionEnterTimeout={500}
                         transitionLeaveTimeout={500}>
                     {
-                        this.state.coins.length > 0 ? 
+                        this.props.coins.length > 0 ? 
                             <Coin 
-                                coins={this.state.coins} 
+                                coins={this.props.coins} 
                                 handleCoinsToAdd={this.handleCoinsToAdd}
                                 handleCoinsToRemove={this.handleCoinsToRemove}
                                 handleCoinsToClear={this.handleCoinsToClear}
@@ -491,17 +267,33 @@ class Dashboard extends Component {
                     <Footer />
                 </div> : <Spinner />
             }
-            
             </React.Fragment>
         )
     }
-
 };
 
-export default Dashboard;
+// # redux state
+const mapStateToProps = (state) => {
+return {
+    market: state.crypto.market,
+    coinsList: state.crypto.coinsList,
+    coinSearched: state.crypto.coinSearched,
+    coins: state.crypto.coins,
+    summary: state.crypto.summary
+}};
+// # redux actions
+const mapDispatchToProps = (dispatch) => {
+return {
+    setGlobalMarketAsync: () => dispatch(setGlobalMarketAsync()),
+    setAutoSuggestionsAsync: () => dispatch(setAutoSuggestionsAsync()),
+    setCoinSearchAsync: (coinSearch) => dispatch(setCoinSearchAsync(coinSearch)),
+    clearCoinSearch: () => dispatch(clearCoinSearch()),
+    setUserCoinsAsync: (token) => dispatch(setUserCoinsAsync(token)),
+    setCoinSummaryAsync: (token) => dispatch(setCoinSummaryAsync(token)),
+    removeCoinAsync: (token, id) => dispatch(removeCoinAsync(token, id)),
+    coinsToAddAsync: (token, id, coinsToAdd) => dispatch(coinsToAddAsync(token, id, coinsToAdd)),
+    coinsToRemoveAsync: (token, id, coinsToRemove) => dispatch(coinsToRemoveAsync(token, id, coinsToRemove)),
+    coinsToClearAsync: (token, id) => dispatch(coinsToClearAsync(token, id))
+}};
 
-const currencyFormat = (num) => {
-    return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-}
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

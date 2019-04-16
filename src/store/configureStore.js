@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import testReducer from '../reducers/testReducer';
+import cryptoReducer from '../reducers/cryptoReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 //creating the redux store: 
 export default () => {
     const store = createStore (combineReducers({
-        test: testReducer,
+        crypto: cryptoReducer,
       }),
       
       composeEnhancers(applyMiddleware(thunk))
