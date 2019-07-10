@@ -759,6 +759,26 @@ button:disabled {
   .summary {
     height: 40vh; } }
 
+.coinFilter {
+  align-items: center;
+  background-color: none;
+  display: flex;
+  height: 10vh;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  width: 95%; }
+  .coinFilter__icon--asc {
+    background-color: transparent !important;
+    color: whitesmoke;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg); }
+  .coinFilter__icon--desc {
+    background-color: transparent !important;
+    color: whitesmoke; }
+
 .coinSearched {
   align-items: center;
   display: flex;
@@ -1122,6 +1142,20 @@ button:disabled {
     height: 40vh; }
   .footerDefault {
     height: 40vh; } }
+
+.pageNotFound {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  justify-content: flex-start; }
+  .pageNotFound__title {
+    color: whitesmoke;
+    font-size: 20rem !important;
+    margin-top: 100px; }
+  .pageNotFound__text {
+    color: whitesmoke;
+    font-size: 2rem !important; }
 
 
 /*# sourceMappingURL=main.css.map*/

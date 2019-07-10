@@ -8,6 +8,7 @@ import moment from 'moment';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import Dashboard from '../components/Dashboard';
+import _404Page from '../components/_404Page';
 
 //AppRouter component
 class AppRouter extends Component {
@@ -124,6 +125,12 @@ class AppRouter extends Component {
                     {...props}
                     handleLogout={this.handleLogout}
                     token={this.state.token}/>
+            )}/>
+            <Route
+                    render={props => (
+                        <_404Page
+                        {...props}
+                        />
             )}/>
             <Redirect to="/dashboard" />
             </Switch>
