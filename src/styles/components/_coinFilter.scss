@@ -1,0 +1,24 @@
+.coinFilter{
+    align-items: center;
+    background-color: none;
+    display: flex;
+    height: 10vh;
+    justify-content: flex-end;
+    padding: 12px 16px;
+    width: 95%;
+
+    &__icon--asc{
+        background-color: transparent !important;
+        color: whitesmoke;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+    }
+
+    &__icon--desc{
+        background-color: transparent !important;
+        color: whitesmoke;
+    }
+}

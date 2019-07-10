@@ -8,13 +8,13 @@ const defaultState = {
         percentChange: 0
     },
     market: {
-        btcDom: 100,
-        dailyVolume: 100,
-        marketCap: 100
+        btcDom: 0,
+        dailyVolume: 0,
+        marketCap: 0
     },
     coinsList: [], // suggestions array
     coins: [],
-    summary: 0,
+    summary: 0
 };
 
 //test reducer:
@@ -123,13 +123,15 @@ const cryptoReducer = (state = defaultState, action) => {
         })
         };
 
+        case 'FILTER_COINS':
+        return {
+          ...state,
+          coins: [...action.filteredCoins]
+        };
+
       default:
         return state;
     }
   };
 
   export default cryptoReducer;
-
-const currencyFormat = (num) => {
-  return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-}

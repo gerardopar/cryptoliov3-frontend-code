@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// importing utility functions
+import { AscCoinSort, DescCoinSort } from '../utils/sortFunc';
 
 // importing redux actions
 import { 
@@ -14,7 +16,8 @@ import {
     removeCoinAsync,
     coinsToAddAsync,
     coinsToRemoveAsync,
-    coinsToClearAsync} from '../actions/crypto';
+    coinsToClearAsync,
+    filterCoins} from '../actions/crypto';
 
 // importing components
 import Header from './Header'; 
@@ -22,6 +25,7 @@ import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import GlobalMarket from './GlobalMarket';
 import Summary from './Summary';
+import CoinFilter from './CoinFilter';
 import CoinSearched from './CoinSearched';
 import Message from './Message';
 import Coin from './Coin';
@@ -51,11 +55,13 @@ class Dashboard extends Component {
         this.handleCoinsToAdd = this.handleCoinsToAdd.bind(this);
         this.handleCoinsToRemove = this.handleCoinsToRemove.bind(this);
         this.handleCoinsToClear = this.handleCoinsToClear.bind(this);
+        this.handleCoinFilterAsc = this.handleCoinFilterAsc.bind(this);
+        this.handleCoinFilterDesc = this.handleCoinFilterDesc.bind(this);
     }
 
     componentDidMount(){
-        // this.props.setGlobalMarketAsync(); // # redux
-        // this.props.setAutoSuggestionsAsync(); // # redux
+        this.props.setGlobalMarketAsync(); // # redux
+        this.props.setAutoSuggestionsAsync(); // # redux
         this.props.token ? this.handleLoadCoins() : null; //! handles loading user coins
         this.props.token ? this.handleCoinSummary() : null; //! handles the portfolio summary
         this.props.token ? this.setState({isAuth: true}) : this.setState({isAuth: false}); // updates auth state
@@ -112,7 +118,19 @@ class Dashboard extends Component {
         this.setState({ hidden: !this.state.hidden });
     }
 
-    // method: handles coin searched
+    // method: handles coins sorting Ascending order
+    handleCoinFilterAsc(e){
+        e.preventDefault();
+        let filteredCoinsByPrice = AscCoinSort(this.props.coins);
+        this.props.filterCoins(filteredCoinsByPrice);
+    }
+    // method: handles coins sorting Descending order
+    handleCoinFilterDesc(e){
+        e.preventDefault();
+        let filteredCoinsByPrice = DescCoinSort(this.props.coins);
+        this.props.filterCoins(filteredCoinsByPrice);
+    }
+
     handleCoinSearch(e){
         e.preventDefault();
         const coinSearched = e.target.elements.coinSearched.value; // user input
@@ -128,6 +146,14 @@ class Dashboard extends Component {
     // method: adds a coin to the wallet/currencies tracked
     handleAddCoin(e){
         e.preventDefault();
+
+        // prevents a coin from being added if it already exists in the users portfolio
+        const coinExists = this.props.coins.find((coin) => (coin.name === this.props.coinSearched.name));
+        
+        if(coinExists){
+            throw new Error('Coin already exists');
+        }
+
         fetch(`https://cryptolio-api-v1.herokuapp.com/addCoin`, {
             method: 'POST',
             headers: {
@@ -220,6 +246,9 @@ class Dashboard extends Component {
                     />
     
                     <Summary summary={this.props.summary}/>
+                    <CoinFilter 
+                        handleCoinFilterDesc={this.handleCoinFilterDesc}
+                        handleCoinFilterAsc={this.handleCoinFilterAsc}/>
     
                     <ReactCSSTransitionGroup
                         transitionName="trans"
@@ -293,7 +322,8 @@ return {
     removeCoinAsync: (token, id) => dispatch(removeCoinAsync(token, id)),
     coinsToAddAsync: (token, id, coinsToAdd) => dispatch(coinsToAddAsync(token, id, coinsToAdd)),
     coinsToRemoveAsync: (token, id, coinsToRemove) => dispatch(coinsToRemoveAsync(token, id, coinsToRemove)),
-    coinsToClearAsync: (token, id) => dispatch(coinsToClearAsync(token, id))
+    coinsToClearAsync: (token, id) => dispatch(coinsToClearAsync(token, id)),
+    filterCoins: (filteredCoins) => dispatch(filterCoins(filteredCoins))
 }};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

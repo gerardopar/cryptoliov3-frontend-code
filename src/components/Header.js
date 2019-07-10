@@ -15,13 +15,13 @@ const Header = (props) => {
                             className="btn-small waves-effect waves-light red lighten-1 header__btn--logout">
                             LOG OUT
                         </button> :
-                        <NavLink to="/" className="btn-small waves-effect waves-light z-depth-5 header__btn">LOG IN</NavLink>
+                        <NavLink to="/login" className="btn-small waves-effect waves-light z-depth-5 header__btn">LOG IN</NavLink>
                 }
 
                 {
                     props.isAuth ? 
                         null :
-                        <NavLink to="/signup" className="btn-small waves-effect waves-light z-depth-5 header__btn signup">SIGN UP</NavLink>
+                        <NavLink to="/" className="btn-small waves-effect waves-light z-depth-5 header__btn signup">SIGN UP</NavLink>
                 }
                 
                 <button

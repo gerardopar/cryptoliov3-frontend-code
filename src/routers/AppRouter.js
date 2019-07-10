@@ -5,8 +5,8 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 //importing modules
 import moment from 'moment';
 //importing components
-import LoginPage from '../components/LoginPage';
-import SignupPage from '../components/SignupPage';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
 import Dashboard from '../components/Dashboard';
 
 //AppRouter component
@@ -110,14 +110,14 @@ class AppRouter extends Component {
         let routes = (
             <Switch>
             <Route path="/" exact={true}
+                    component={Signup}
+            />
+            <Route path="/login" exact={true}
                 render={props => (
-                    <LoginPage
+                    <Login
                     {...props}
                     handleLogin={this.handleLogin} />
             )}/>
-            <Route path="/signup" exact={true}
-                    component={SignupPage}
-            />
             <Route path="/dashboard" exact={true}
                 render={props => (
                     <Dashboard
@@ -139,6 +139,7 @@ class AppRouter extends Component {
                     handleLogout={this.handleLogout}
                     token={this.state.token}/>
             )}/>
+            <Redirect to="/" />
             </Switch>
             );
         }

@@ -266,6 +266,15 @@ export const coinsToClear = (coins) => { // set breakingNews via the async logic
     }
 };
 
+// # sync action
+export const filterCoins = (filteredCoins) => { // set breakingNews via the async logic
+    return {
+        type: 'FILTER_COINS',
+        filteredCoins: filteredCoins
+    }
+};
+
+
 const currencyFormat = (num) => {
     return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 }
