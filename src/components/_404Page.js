@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const _404Page = () => (
+const pageNotFound = () => (
     <div>
         <header className="loginPage__header z-depth-5">
             <div className="loginPage__header--logo--wrap">
@@ -19,4 +19,4 @@ const _404Page = () => (
     </div>
 );
 
-export default _404Page;
+export default pageNotFound;
