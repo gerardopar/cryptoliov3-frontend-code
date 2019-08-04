@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SuggestionItem = props => (
+const suggestionItem = props => (
     <React.Fragment>
         <li
           className="list__item"
@@ -12,9 +12,20 @@ const SuggestionItem = props => (
         })}
         >
         {props.name}
-
         </li>
     </React.Fragment>
 );
 
-export default SuggestionItem;
+suggestionItem.propTypes = {
+    name: PropTypes.string,
+    clearSuggestion: PropTypes.func,
+    selectSearch: PropTypes.func
+};
+
+suggestionItem.defaultProps = {
+    name: '',
+    clearSuggestion: () => {},
+    selectSearch: () => {}
+};
+
+export default suggestionItem;

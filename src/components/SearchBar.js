@@ -41,14 +41,21 @@ const searchBar = props => (
 
 searchBar.propTypes = {
     search: PropTypes.string,
+    suggestions: PropTypes.arrayOf(PropTypes.object),
+    clearSuggestion: PropTypes.func,
     getUserInput: PropTypes.func,
     handleCoinSearch: PropTypes.func,
+    selectSearch: PropTypes.func,
+    
 };
 
 searchBar.defaultProps = {
     search: '',
+    suggestions: [],
+    clearSuggestion: () => {},
     getUserInput: () => {},
     handleCoinSearch: () => {},
+    selectSearch: () => {},
 };
 
 export default searchBar;

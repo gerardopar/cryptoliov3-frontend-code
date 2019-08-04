@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // importing images
-import blue_waves from '../assets/img/waves-blk.svg';
-import profile_img from '../assets/img/user.svg';
-import crypto_wallet from '../assets/img/bitcoin-wallet.svg';
-//importing components
+import blueWaves from '../assets/img/waves-blk.svg';
+import profileImg from '../assets/img/user.svg';
+import cryptoWallet from '../assets/img/bitcoin-wallet.svg';
+// importing components
 import Footer from './FooterDefault';
 
-class Signup extends Component{
-    constructor(props){
-        super(props);
-        this.handleSignup = this.handleSignup.bind(this);
-    }
-
+class Signup extends Component {
     // method: handles user signup
-    handleSignup(e){
+    handleSignup = (e) => {
         e.preventDefault();
-        fetch(`https://cryptolio-api-v1.herokuapp.com/signup`, {
+        fetch('https://cryptolio-api-v1.herokuapp.com/signup', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +23,7 @@ class Signup extends Component{
             coins: []
         })
         })
-        .then(res => {
+        .then((res) => {
             if (res.status === 422) {
             throw new Error(
                 "Validation failed. Make sure the email address isn't used yet!"
@@ -39,12 +35,12 @@ class Signup extends Component{
             }
             return res.json();
         })
-        .then(resData => {
-            this.props.history.replace('/');
-        })
+        .then(() => {
+            this.props.history.replace('/login');
+        });
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <header className="loginPage__header z-depth-5">
@@ -57,18 +53,17 @@ class Signup extends Component{
 
                 <div className="login">
                     <div className="login__col--left">
-                    <img src={crypto_wallet} className="login__wallet--img" />
-
+                    <img src={cryptoWallet} className="login__wallet--img" alt="wallet icon" />
                         <div className="login__form--container">
                             <div className="login__title--wrap">
                                 <h3 className="login__title">Join us! Start tracking your portfolio.</h3>
                             </div>
                             <form onSubmit={this.handleSignup} className="login__form">
                                 <div className="login__form--input--wrap input--email z-depth-5">
-                                    <input className="login__form--input" type="email" placeholder="Email Address" name="email" autoComplete="off"/>
+                                    <input className="login__form--input" type="email" placeholder="Email Address" name="email" autoComplete="off" />
                                 </div>
                                 <div className="login__form--input--wrap input--password z-depth-5">
-                                    <input className="login__form--input" type="password" placeholder="Password" name="password" autoComplete="off"/>
+                                    <input className="login__form--input" type="password" placeholder="Password" name="password" autoComplete="off" />
                                 </div>
                                 <div className="login__form--btn--wrap">
                                     <button className="login__form--btn--login waves-effect waves-light z-depth-5" type="submit">SIGN UP</button>
@@ -77,19 +72,25 @@ class Signup extends Component{
                             </form>
                         </div>
                     </div>
-
-                    <div style={{
-                        backgroundImage: `url(${blue_waves})` }}
-                        className="login__col--right">
-                        <img className="login__profile--img z-depth-5" src={profile_img} />
+                    <div
+                      style={{ backgroundImage: `url(${blueWaves})` }}
+                      className="login__col--right"
+                    >
+                        <img className="login__profile--img z-depth-5" src={profileImg} alt="user icon" />
                     </div>
                 </div>
-
                 <Footer />
-
             </div>
         );
     }
+}
+
+Signup.propTypes = {
+    history: PropTypes.objectOf(PropTypes.any),
+};
+
+Signup.defaultProps = {
+    history: {}
 };
 
 export default Signup;
