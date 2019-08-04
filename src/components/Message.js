@@ -1,5 +1,6 @@
 // importing modules
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const message = props => (
     <div className="message">

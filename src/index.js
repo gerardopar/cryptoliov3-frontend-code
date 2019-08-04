@@ -1,24 +1,24 @@
-//importing modules installed
+// importing modules installed
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-//importing test component
-import AppRouter from '../src/routers/AppRouter';
+// importing test component
+import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
-//importing style sheet
+// importing style sheet
 import './styles/main.scss';
 
-//redux store initialized
+// redux store initialized
 const store = configureStore();
 
-//redux store provider
+// redux store provider
 const jsx = (
     <Provider store={store}>
       <AppRouter />
     </Provider>
 );
 
-//rendering app
+// rendering app
 ReactDOM.render(jsx, document.getElementById('app'));

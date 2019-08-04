@@ -1,23 +1,25 @@
-//importing react
+// importing react
 import React, { Component } from 'react';
 // importing react-router
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-//importing modules
+import {
+ BrowserRouter, Route, Switch, Redirect
+ } from 'react-router-dom';
+// importing modules
 import moment from 'moment';
-//importing components
+// importing components
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import Dashboard from '../components/Dashboard';
-import _404Page from '../components/_404Page';
+import PageNotFound from '../components/_404Page';
 
-//AppRouter component
+// AppRouter component
 class AppRouter extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             isAuth: false,
             token: null
-        }
+        };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
@@ -27,22 +29,22 @@ class AppRouter extends Component {
     componentDidMount() {
         // checking if auth token is set
         const token = localStorage.getItem('token');
-        const expDate = localStorage.getItem('tokenExpires') 
+        const expDate = localStorage.getItem('tokenExpires'); 
         const date = Date.now(); // current date
         const currentDate = moment(date).format('MMMM Do YYYY, h:mm:ss a'); // current date format
 
-        if(token) {
-            this.setState({ isAuth: true, token: token });
+        if (token) {
+            this.setState({ isAuth: true, token });
         }
-        if(expDate < currentDate) {
+        if (expDate < currentDate) {
             this.handleAutoLogout();
         }
     }
 
     // method: authenticates user
-    handleLogin(e){
+    handleLogin(e) {
         e.preventDefault();
-        fetch(`https://cryptolio-api-v1.herokuapp.com/login`, {
+        fetch('https://cryptolio-api-v1.herokuapp.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -52,7 +54,7 @@ class AppRouter extends Component {
             password: e.target.elements.password.value
         })
         })
-        .then(res => {
+        .then((res) => {
             if (res.status === 422) {
             throw new Error('Validation failed.');
             }
@@ -62,7 +64,7 @@ class AppRouter extends Component {
             }
             return res.json();
         })
-        .then(resData => {
+        .then((resData) => {
             this.setState(() => ({
                 isAuth: true,
                 token: resData.token
@@ -77,13 +79,13 @@ class AppRouter extends Component {
             localStorage.setItem('token', resData.token);
             localStorage.setItem('userId', resData.userId);
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
-    };
+    }
 
     // method: handles logout
-    handleLogout(e){
+    handleLogout(e) {
         e.preventDefault();
         this.setState(() => ({
             isAuth: false
@@ -96,7 +98,7 @@ class AppRouter extends Component {
     }
 
     // method : handles Auto logout 
-    handleAutoLogout(){
+    handleAutoLogout() {
         this.setState(() => ({
             isAuth: false
         }));
@@ -107,45 +109,60 @@ class AppRouter extends Component {
         localStorage.removeItem('userId');
     }
 
-    render(){
+    render() {
         let routes = (
             <Switch>
-            <Route path="/" exact={true}
-                    component={Signup}
-            />
-            <Route path="/login" exact={true}
-                render={props => (
-                    <Login
-                    {...props}
-                    handleLogin={this.handleLogin} />
-            )}/>
-            <Route path="/dashboard" exact={true}
-                render={props => (
-                    <Dashboard
-                    {...props}
-                    handleLogout={this.handleLogout}
-                    token={this.state.token}/>
-            )}/>
             <Route
-                    render={props => (
-                        <_404Page
-                        {...props}
+              path="/"
+              exact
+              component={Signup}
+            />
+            <Route
+              path="/login"
+              exact
+              render={props => (
+                    <Login
+                      {...props}
+                      handleLogin={this.handleLogin}
+                    />
+            )} 
+            />
+            <Route
+              path="/dashboard"
+              exact
+              render={props => (
+                    <Dashboard
+                      {...props}
+                      handleLogout={this.handleLogout}
+                      token={this.state.token} 
+                    />
+            )} 
+            />
+            <Route
+              render={props => (
+                        <PageNotFound
+                          {...props}
                         />
-            )}/>
+            )} 
+            />
             <Redirect to="/dashboard" />
             </Switch>
             
         );
-        if(this.state.isAuth) {
+        if (this.state.isAuth) {
             routes = (
             <Switch>   
-            <Route path="/" exact={true}
-                render={props => (
+            <Route
+              path="/"
+              exact
+              render={props => (
                     <Dashboard
-                    {...props}
-                    handleLogout={this.handleLogout}
-                    token={this.state.token}/>
-            )}/>
+                      {...props}
+                      handleLogout={this.handleLogout}
+                      token={this.state.token} 
+                    />
+            )} 
+            />
             <Redirect to="/" />
             </Switch>
             );
@@ -156,8 +173,8 @@ class AppRouter extends Component {
                 {routes}
             </div>
         </BrowserRouter>
-        )
+        );
     }
-};
+}
 
 export default AppRouter;

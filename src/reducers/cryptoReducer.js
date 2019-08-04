@@ -1,4 +1,4 @@
-//default reducer state:
+// default reducer state:
 const defaultState = {
     coinSearched: {
         name: '',
@@ -17,7 +17,7 @@ const defaultState = {
     summary: 0
 };
 
-//test reducer:
+// crypto reducer:
 const cryptoReducer = (state = defaultState, action) => {
     switch (action.type) {
       case 'SET_GLOBAL_MARKET':
@@ -40,11 +40,11 @@ const cryptoReducer = (state = defaultState, action) => {
         return {
             ...state,
             coinSearched: {
-              name: action.coinSearched.name,
-              symbol: action.coinSearched.symbol,
-              logo: action.coinSearched.logo,
-              price: action.coinSearched.price,
-              percentChange: action.coinSearched.percentChange
+              name: action.coin.name,
+              symbol: action.coin.symbol,
+              logo: action.coin.logo,
+              price: action.coin.price,
+              percentChange: action.coin.percentChange
           }
         };
 
@@ -75,7 +75,7 @@ const cryptoReducer = (state = defaultState, action) => {
         case 'REMOVE_COIN':
         return {
             ...state,
-            coins: state.coins.filter((coin) => coin._id !== action.id)
+            coins: state.coins.filter(coin => coin._id !== action.id)
         };
 
         case 'ADD_COINS':
@@ -87,9 +87,8 @@ const cryptoReducer = (state = defaultState, action) => {
                     ...coin,
                     coinsAvailable: coin.coinsAvailable += action.coinsToAdd
                 };
-            } else {
+            } 
                 return coin;
-            }
         })
         };
 
@@ -102,9 +101,8 @@ const cryptoReducer = (state = defaultState, action) => {
                     ...coin,
                     coinsAvailable: coin.coinsAvailable -= action.coinsToRemove
                 };
-            } else {
+            } 
                 return coin;
-            }
         })
         };
 
@@ -117,9 +115,8 @@ const cryptoReducer = (state = defaultState, action) => {
                     ...coin,
                     coinsAvailable: 0
                 };
-            } else {
+            } 
                 return coin;
-            }
         })
         };
 
