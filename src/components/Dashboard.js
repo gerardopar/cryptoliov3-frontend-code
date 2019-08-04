@@ -1,6 +1,7 @@
 // importing modules
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // importing utility functions
 import { AscCoinSort, DescCoinSort } from '../utils/sortFunc';
@@ -77,8 +78,7 @@ class Dashboard extends Component {
         const coinLength = coinSearch.length; // onchange user input length
 
         // ! test filter logic
-        const suggestions = coinLength === 0 ? [] : this.props.coinsList.filter(lang => // filters coins from suggestions coinsLists
-            lang.name.toUpperCase().slice(0, coinLength) === coinSearch);
+        const suggestions = coinLength === 0 ? [] : this.props.coinsList.filter(lang => lang.name.toUpperCase().slice(0, coinLength) === coinSearch);
 
         this.setState(() => ({
             suggestions, // set suggestions array
@@ -115,7 +115,9 @@ class Dashboard extends Component {
     // method: handles searchbar toggle
     handleSearchBar(e) {
         e.preventDefault();
-        this.setState({ hidden: !this.state.hidden });
+        this.setState(prevState => ({
+            hidden: !prevState.hidden
+        }));
     }
 
     // method: handles coins sorting Ascending order
@@ -137,6 +139,7 @@ class Dashboard extends Component {
         const coinSearched = e.target.elements.coinSearched.value; // user input
         this.props.setCoinSearchAsync(coinSearched);
         this.setState({ search: '' });
+        this.clearSuggestions();
     }
 
     // method: handles clearing the search state
@@ -170,7 +173,7 @@ class Dashboard extends Component {
             })
         })
         .then(data => data.json())
-        .then((data) => {
+        .then(() => {
             this.handleClearCoinSearch();
             this.handleLoadCoins();
         })
@@ -213,15 +216,13 @@ class Dashboard extends Component {
             {  
                 this.props.market.marketCap !== 0 
                     ? (
-<div className="dashboard">
-            
+                <div className="dashboard">
                     <Header
                       isAuth={this.state.isAuth}
                       hidden={this.state.hidden}
                       handleSearchBar={this.handleSearchBar} 
                       handleLogout={this.props.handleLogout}
                     />
-    
                     <ReactCSSTransitionGroup
                       transitionName="trans"
                       transitionEnterTimeout={500}
@@ -229,53 +230,49 @@ class Dashboard extends Component {
                     >
                         { this.state.hidden ? null 
                             : (
-<SearchBar 
-  suggestions={this.state.suggestions}
-  selectSearch={this.selectSearch}
-  clearSuggestion={this.clearSuggestions}
-    
-  search={this.state.search}
-  getUserInput={this.getUserInput} 
-  handleCoinSearch={this.handleCoinSearch}
-/>
-) 
+                            <SearchBar 
+                              suggestions={this.state.suggestions}
+                              selectSearch={this.selectSearch}
+                              clearSuggestion={this.clearSuggestions}
+                                
+                              search={this.state.search}
+                              getUserInput={this.getUserInput} 
+                              handleCoinSearch={this.handleCoinSearch}
+                            />
+                            ) 
                         }
                     </ReactCSSTransitionGroup>
-    
                     <GlobalMarket 
                       btcDom={this.props.market.btcDom}
                       dailyVolume={this.props.market.dailyVolume}
                       marketCap={this.props.market.marketCap}
                     />
-    
                     <Summary summary={this.props.summary} />
                     <CoinFilter 
                       handleCoinFilterDesc={this.handleCoinFilterDesc}
                       handleCoinFilterAsc={this.handleCoinFilterAsc} 
                     />
-    
                     <ReactCSSTransitionGroup
                       transitionName="trans"
                       transitionEnterTimeout={500}
                       transitionLeaveTimeout={500}
                     >
-                    {
-                        this.props.coinSearched.name.length > 0 
-                            ? (
-<CoinSearched 
-  isAuth={this.state.isAuth}
-  name={this.props.coinSearched.name}
-  symbol={this.props.coinSearched.symbol}
-  logo={this.props.coinSearched.logo}
-  price={this.props.coinSearched.price}
-  percentChange={this.props.coinSearched.percentChange}
-  handleClearCoinSearch={this.handleClearCoinSearch}
-  handleAddCoin={this.handleAddCoin}
-/>
-) : null 
-                    }
+                        {
+                            this.props.coinSearched.name.length > 0 
+                                ? (
+                            <CoinSearched 
+                              isAuth={this.state.isAuth}
+                              name={this.props.coinSearched.name}
+                              symbol={this.props.coinSearched.symbol}
+                              logo={this.props.coinSearched.logo}
+                              price={this.props.coinSearched.price}
+                              percentChange={this.props.coinSearched.percentChange}
+                              handleClearCoinSearch={this.handleClearCoinSearch}
+                              handleAddCoin={this.handleAddCoin}
+                            />
+                                ) : null 
+                        }
                     </ReactCSSTransitionGroup>
-    
                     <ReactCSSTransitionGroup
                       transitionName="trans"
                       transitionEnterTimeout={500}
@@ -284,33 +281,33 @@ class Dashboard extends Component {
                     {
                         this.props.coins.length > 0 
                             ? (
-<Coin 
-  coins={this.props.coins} 
-  handleCoinsToAdd={this.handleCoinsToAdd}
-  handleCoinsToRemove={this.handleCoinsToRemove}
-  handleCoinsToClear={this.handleCoinsToClear}
-  handleRemoveCoin={this.handleRemoveCoin}
-/>
-) 
+                            <Coin 
+                              coins={this.props.coins} 
+                              handleCoinsToAdd={this.handleCoinsToAdd}
+                              handleCoinsToRemove={this.handleCoinsToRemove}
+                              handleCoinsToClear={this.handleCoinsToClear}
+                              handleRemoveCoin={this.handleRemoveCoin}
+                            />
+                            ) 
                             : this.state.isAuth === true 
                                 ? (
-<Message 
-  span="Add coins to get started" 
-  title="NO COINS CURRENTLY TRACKED"
-/>
-) 
+                                <Message 
+                                  span="Add coins to get started" 
+                                  title="NO COINS CURRENTLY TRACKED"
+                                />
+                                ) 
                                 : (
-<Message 
-  span="Login or Signup to start tracking coins!" 
-  title="NO COINS CURRENTLY TRACKED"
-/>
-)
-                    }
+                                <Message 
+                                  span="Login or Signup to start tracking coins!" 
+                                  title="NO COINS CURRENTLY TRACKED"
+                                />
+                                )
+                                    }
                     </ReactCSSTransitionGroup>
-                    <Footer />
-</div>
-) : <Spinner />
-            }
+                                    <Footer />
+                </div>
+                ) : <Spinner />
+                            }
             </React.Fragment>
         );
     }
@@ -338,5 +335,57 @@ const mapDispatchToProps = dispatch => ({
     coinsToClearAsync: (token, id) => dispatch(coinsToClearAsync(token, id)),
     filterCoins: filteredCoins => dispatch(filterCoins(filteredCoins))
 });
+
+Dashboard.propTypes = {
+    coins: PropTypes.arrayOf(PropTypes.object),
+    coinsList: PropTypes.arrayOf(PropTypes.object),
+    coinSearched: PropTypes.shape({
+        logo: PropTypes.string,
+        name: PropTypes.string,
+        percentChange: PropTypes.number,
+        price: PropTypes.number,
+        symbol: PropTypes.string,
+    }),
+    market: PropTypes.shape({
+        btcDom: PropTypes.number,
+        dailyVolume: PropTypes.number,
+        marketCap: PropTypes.number
+    }),
+    summary: PropTypes.number,
+    token: PropTypes.string,
+    clearCoinSearch: PropTypes.func,
+    coinsToAddAsync: PropTypes.func,
+    coinsToClearAsync: PropTypes.func,
+    coinsToRemoveAsync: PropTypes.func,
+    filterCoins: PropTypes.func,
+    handleLogout: PropTypes.func,
+    removeCoinAsync: PropTypes.func,
+    setAutoSuggestionsAsync: PropTypes.func,
+    setCoinSearchAsync: PropTypes.func,
+    setCoinSummaryAsync: PropTypes.func,
+    setGlobalMarketAsync: PropTypes.func,
+    setUserCoinsAsync: PropTypes.func,
+};
+
+Dashboard.defaultProps = {
+    coins: [],
+    coinsList: [],
+    coinSearched: {},
+    market: {},
+    summary: 0,
+    token: '',
+    clearCoinSearch: () => {},
+    coinsToAddAsync: () => {},
+    coinsToClearAsync: () => {},
+    coinsToRemoveAsync: () => {},
+    filterCoins: () => {},
+    handleLogout: () => {},
+    removeCoinAsync: () => {},
+    setAutoSuggestionsAsync: () => {},
+    setCoinSearchAsync: () => {},
+    setCoinSummaryAsync: () => {},
+    setGlobalMarketAsync: () => {},
+    setUserCoinsAsync: () => {},
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
