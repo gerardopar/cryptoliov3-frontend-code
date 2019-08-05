@@ -30,8 +30,8 @@ const globalMarket = props => (
 
 globalMarket.propTypes = {
     btcDom: PropTypes.number,
-    dailyVolume: PropTypes.number,
-    marketCap: PropTypes.number
+    dailyVolume: PropTypes.string,
+    marketCap: PropTypes.string
 };
 
 globalMarket.defaultProps = {

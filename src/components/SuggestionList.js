@@ -8,12 +8,12 @@ import SuggestionItem from './SuggestionItem';
 const suggestionList = props => (
     <div className="list__container">
     {
-        props.suggestions.map(coin => (
+        props.suggestions.map((coin, index) => (
             <SuggestionItem
               selectSearch={props.selectSearch}
               clearSuggestion={props.clearSuggestion}
               name={coin.name} 
-              key={coin.name}
+              key={index}
             />
         ))
     }

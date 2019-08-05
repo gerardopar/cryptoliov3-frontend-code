@@ -348,8 +348,8 @@ Dashboard.propTypes = {
     }),
     market: PropTypes.shape({
         btcDom: PropTypes.number,
-        dailyVolume: PropTypes.number,
-        marketCap: PropTypes.number
+        dailyVolume: PropTypes.string,
+        marketCap: PropTypes.string
     }),
     summary: PropTypes.number,
     token: PropTypes.string,
