@@ -1,16 +1,17 @@
-# digi news
-[View Project](http://digitalnews.s3-website-us-west-1.amazonaws.com/)
+# CRYPTOLIO
+[View Project](http://cryptolio.s3-website-us-west-1.amazonaws.com/)
 
-[![news api logo](https://digitalnews.s3-us-west-1.amazonaws.com/readme-assets/news-logo.jpeg)](https://newsapi.org/)
+[![news api logo](https://cryptolio.s3-us-west-1.amazonaws.com/readme-assets/cm-logo.png)](https://coinmarketcap.com/api/)
 
-Digi News is a Single Page Web Application, that utilizes the News api in order to fetch real time news feeds. Powered by React and Redux.
+Cryptolio is a Single Page Web Application, that utilizes the CoinMarketCap API to manipulate and fetch cryptocurrency data. The front-end is powered by React.js, and the backend is powered by Node.js, Express and MongoDB. 
 
 ## FEATURES!
-- Powered By **The News Api**.
-- View trending news feeds.
-- Explore different news feeds *(Breaking News, Cryptocurrency, Sports, etc)*.
-- Redirect users to news articles. 
-- Frequent news updates.
+- Powered By **The CoinMarketCap Api**.
+- View real time cryptocurrency data (prices, 24hr percent changes, etc).
+- View cryptocurrency global data (market-cap, btc dominance, 24hr volume, etc).
+- Search over 1000 currencies and review currency data.
+- Users can Sign Up or Login and track currencies they own.
+- View Portfolio summary.
 
 ### TECH
   - React.js - ( Front-End )
@@ -19,13 +20,16 @@ Digi News is a Single Page Web Application, that utilizes the News api in order 
   - MaterializeCSS ( CSS-Framework )
   - Webpack4 - ( Module Bundler )
   - ESLint - ( Linter )
+  - Node.js - ( Back-End )
+  - Express - ( Back-End )
+  - MongoDB - ( Database )
 
 ### Installation
 
 Install the dependencies and start the development server.
 
 ```sh
-$ cd diginews
+$ cd cryptolio
 $ npm install
 $ npm run dev-server
 ```
